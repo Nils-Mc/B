@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passwortgeschützte Seite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 280px;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🔒 Passwortschutz</h2>
+    <p>Bitte gib das Passwort ein:</p>
+    <input type="password" id="pw" placeholder="Passwort eingeben">
+    <button onclick="checkPassword()">Weiter</button>
+    <div class="error" id="error">❌ Falsches Passwort</div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("pw").value;
+      const error = document.getElementById("error");
+
+      if (input === "1234") {
+        window.location.href = "/site.html";
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    // Option: Enter-Taste aktiviert Button
+    document.getElementById("pw").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") checkPassword();
+    });
+  </script>
+</body>
+</html>
