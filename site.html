@@ -3,12 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hallihalo — Ruthe Cartoon Zufall</title>
+  <title>Hallihalo</title>
   <style>
-    /* Grundlegendes Reset */
+    /* Grundlayout */
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* Body */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(180deg,#f6f7fb 0%, #f4f4f9 100%);
@@ -21,34 +20,28 @@
       gap: 16px;
     }
 
-    header {
-      width: 100%;
-      max-width: 920px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-    }
-
     h1 {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
+      text-align: center;
       font-weight: 700;
       color: #111;
-      line-height: 1.1;
     }
 
-    p.lead {
+    p {
+      text-align: center;
       color: #555;
-      font-size: 0.98rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      max-width: 800px;
     }
 
-    /* Card */
+    /* Cartoon-Karte */
     .cartoon-card {
       width: 100%;
-      max-width: 920px;
+      max-width: 900px;
       background: #fff;
       border-radius: 14px;
-      padding: 14px;
+      padding: 16px;
       box-shadow: 0 8px 24px rgba(16,24,40,0.06);
       display: flex;
       flex-direction: column;
@@ -57,31 +50,20 @@
       transition: transform .25s ease, box-shadow .25s ease;
     }
 
-    .cartoon-card:active { transform: translateY(-2px); }
-
-    /* Bild-Container: sorgt für sauberes Scaling und Platzhalter */
-    .image-wrap {
-      width: 100%;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
-      border-radius: 10px;
-      overflow: hidden;
-      min-height: 180px; /* mobile-friendly minimum */
+    .cartoon-card:hover {
+      transform: translateY(-2px);
     }
 
-    /* Responsive image */
     img#cartoonImage {
       width: 100%;
       height: auto;
-      display: block;
-      max-height: 80vh; /* prevents huge overflow on desktop */
+      max-height: 75vh;
+      border-radius: 10px;
       object-fit: contain;
-      transition: opacity .35s ease;
+      transition: opacity .4s ease-in-out;
       opacity: 1;
     }
 
-    /* Placeholder while image fades out */
     .placeholder {
       width: 50%;
       height: 12px;
@@ -92,12 +74,11 @@
     }
 
     @keyframes pulse {
-      0% { opacity: 0.6; transform: translateY(0); }
+      0%,100% { opacity: 0.6; transform: translateY(0); }
       50% { opacity: 1; transform: translateY(-4px); }
-      100% { opacity: 0.6; transform: translateY(0); }
     }
 
-    /* Blinkender, touch-freundlicher Button */
+    /* Blinkender Button */
     @keyframes rainbowBlink {
       0%   { background: #ff0057; }
       16%  { background: #ff8c00; }
@@ -108,22 +89,10 @@
       100% { background: #ff00ff; color: #fff; }
     }
 
-    .action-row {
-      width: 100%;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      align-items: center;
-      padding-top: 6px;
-    }
-
-    button#randomBtn {
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      appearance: none;
+    button {
       border: none;
       cursor: pointer;
-      padding: 14px 22px;
+      padding: 14px 28px;
       border-radius: 12px;
       font-weight: 700;
       font-size: 1rem;
@@ -131,72 +100,43 @@
       color: #fff;
       min-width: 180px;
       box-shadow: 0 6px 20px rgba(16,24,40,0.12);
-      animation: rainbowBlink 3.2s infinite alternate;
+      animation: rainbowBlink 3s infinite alternate;
       transition: transform .12s ease, box-shadow .12s ease;
     }
 
-    button#randomBtn:active { transform: translateY(2px) scale(.995); }
-    button#randomBtn:focus { outline: 3px solid rgba(0,123,255,0.18); }
+    button:active { transform: scale(.97); }
 
-    /* Sekundärer kleiner Button (z.B. für teilen) */
-    button.secondary {
-      padding: 12px 14px;
-      min-width: 48px;
-      border-radius: 10px;
-      background: #eef2ff;
-      color: #223;
-      font-weight: 600;
-      box-shadow: 0 2px 8px rgba(16,24,40,0.06);
-    }
-
-    /* Footer / Meta */
     footer {
-      width: 100%;
-      max-width: 920px;
       text-align: center;
       color: #666;
-      font-size: 0.86rem;
-      padding-top: 4px;
+      font-size: 0.85rem;
+      margin-top: 20px;
     }
 
-    /* Desktop tweaks */
-    @media (min-width: 720px) {
-      body { padding: 36px; }
-      h1 { font-size: 1.6rem; }
-      .cartoon-card { padding: 20px; }
-      .image-wrap { min-height: 260px; }
-      button#randomBtn { padding: 14px 28px; font-size: 1.05rem; min-width: 220px; }
-    }
-
-    @media (min-width: 1100px) {
-      body { padding: 48px; }
-      h1 { font-size: 1.8rem; }
-      .cartoon-card { max-width: 820px; }
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 1.3rem; }
+      p { font-size: 0.95rem; }
+      button { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Hallo Martina, und deine Klasse!</h1>
-    <p class="lead">Wie war es so in Berlin? Auch an deine Schüler: Noch eine tolle Rückfahrt! <strong>PS:</strong> Drück mal den blinkenden Knopf 😄</p>
-  </header>
+  <h1>Hallo Martina, und deine Klasse</h1>
+  <p>
+    Wie war es so in Berlin? 😊 Auch an deine Schüler: Noch eine tolle Rückfahrt!  
+    <br><br>
+    <strong>PS:</strong> Drück mal den blinkenden Knopf!
+  </p>
 
-  <main class="cartoon-card" role="main" aria-live="polite">
-    <div class="image-wrap" id="imageWrap">
-      <!-- Placeholder shown while loading / before first image -->
-      <div class="placeholder" id="placeholder"></div>
-      <img id="cartoonImage" src="" alt="Ruthe Cartoon" style="opacity:0" />
-    </div>
-
-    <div class="action-row">
-      <button id="randomBtn" aria-label="Neuen Cartoon laden" title="Neuen Cartoon laden">🎨 Neuen Cartoon</button>
-      <!-- optional secondary button for share or next; kept for layout balance -->
-      <button class="secondary" id="infoBtn" aria-label="Info">i</button>
-    </div>
-  </main>
+  <div class="cartoon-card">
+    <div class="placeholder" id="placeholder"></div>
+    <img id="cartoonImage" src="" alt="Cartoon wird geladen..." style="opacity:0" />
+    <button onclick="loadRandomCartoon()">🎨 Neuen Cartoon laden</button>
+  </div>
 
   <footer>
-    <small>Cartoons stammen von ruthe.de — nur ausgewählte Beispiele werden angezeigt.</small>
+    <small>Cartoons © Ruthe.de – Nur ausgewählte Beispiele werden angezeigt.</small>
   </footer>
 
   <script>
@@ -217,52 +157,33 @@
 
     const img = document.getElementById('cartoonImage');
     const placeholder = document.getElementById('placeholder');
-    const randomBtn = document.getElementById('randomBtn');
 
-    // Load one random cartoon (with preloading and fade)
     function loadRandomCartoon() {
-      // show placeholder & hide image during load
       placeholder.style.display = 'block';
       img.style.opacity = 0;
 
-      const index = Math.floor(Math.random() * cartoons.length);
-      const url = cartoons[index];
+      const randomIndex = Math.floor(Math.random() * cartoons.length);
+      const newUrl = cartoons[randomIndex];
+      const tempImg = new Image();
 
-      // Preload to avoid flicker
-      const pre = new Image();
-      pre.onload = () => {
-        // small delay for nicer effect
+      tempImg.onload = () => {
         setTimeout(() => {
-          img.src = url;
-          img.alt = 'Ruthe Cartoon ' + url.split('/').pop();
+          img.src = newUrl;
           img.style.opacity = 1;
           placeholder.style.display = 'none';
-        }, 160);
+        }, 150);
       };
-      pre.onerror = () => {
-        // fallback if image cannot be loaded
+
+      tempImg.onerror = () => {
         placeholder.style.display = 'none';
-        img.style.opacity = 1;
         img.src = '';
-        img.alt = 'Cartoon konnte nicht geladen werden.';
-        img.style.display = 'block';
-        img.style.minHeight = '80px';
-        img.style.background = 'linear-gradient(90deg,#f8d7da,#fff)'; // visual cue
+        img.alt = 'Fehler beim Laden 😢';
       };
-      pre.src = url;
+
+      tempImg.src = newUrl;
     }
 
-    // Bind to button with better touch responsiveness
-    randomBtn.addEventListener('click', loadRandomCartoon, { passive: true });
-
-    // Optional: quick double-tap safety on mobile disabled to avoid zoom issues
-    randomBtn.addEventListener('touchstart', (e) => {
-      // prevent double-tap zoom on some browsers
-      if (e.touches && e.touches.length > 1) e.preventDefault();
-    }, { passive: true });
-
-    // Load one on open
-    window.addEventListener('load', loadRandomCartoon);
+    window.onload = loadRandomCartoon;
   </script>
 </body>
 </html>
