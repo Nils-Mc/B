@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruthe Cartoon Zufallsgenerator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ruthe Cartoon Zufallsgenerator</h1>
+  <p>Erhalte einen zufälligen Cartoon von Ruthe.de!</p>
+  <img id="cartoonImage" src="" alt="Cartoon wird geladen..." />
+  <br><br>
+  <button onclick="loadRandomCartoon()">Neuen Cartoon laden</button>
+
+  <script>
+    function loadRandomCartoon() {
+      const randomId = Math.floor(Math.random() * 1000) + 1; // Zufällige ID zwischen 1 und 1000
+      const imageUrl = `https://ruthe.de/static/cartoon_${randomId}.html`;
+
+      fetch(imageUrl)
+        .then(response => {
+          if (response.ok) {
+            document.getElementById('cartoonImage').src = imageUrl;
+          } else {
+            throw new Error('Cartoon nicht gefunden');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          alert('Es konnte kein Cartoon geladen werden. Bitte versuche es später erneut.');
+        });
+    }
+
+    // Beim Laden der Seite einen Cartoon anzeigen
+    window.onload = loadRandomCartoon;
+  </script>
+</body>
+</html>
