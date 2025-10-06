@@ -3,60 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ruthe Cartoon Zufallsgenerator</title>
+  <title>Ruthe Cartoon Zufall</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 20px;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      background-color: #007bff;
-      color: white;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
+    body { text-align:center; font-family:Arial; margin:20px; }
+    iframe { width:80%; height:600px; border:1px solid #ccc; border-radius:8px; }
+    button { padding:10px 20px; font-size:16px; cursor:pointer; margin-top:20px; }
   </style>
 </head>
 <body>
-  <h1>Ruthe Cartoon Zufallsgenerator</h1>
-  <p>Erhalte einen zufälligen Cartoon von Ruthe.de!</p>
-  <img id="cartoonImage" src="" alt="Cartoon wird geladen..." />
-  <br><br>
+  <h1>Ruthe Cartoon Zufall</h1>
+  <iframe id="cartoonFrame" src=""></iframe>
+  <br>
   <button onclick="loadRandomCartoon()">Neuen Cartoon laden</button>
 
   <script>
     function loadRandomCartoon() {
-      const randomId = Math.floor(Math.random() * 1000) + 1; // Zufällige ID zwischen 1 und 1000
-      const imageUrl = `https://ruthe.de/static/cartoon_${randomId}.html`;
-
-      fetch(imageUrl)
-        .then(response => {
-          if (response.ok) {
-            document.getElementById('cartoonImage').src = imageUrl;
-          } else {
-            throw new Error('Cartoon nicht gefunden');
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          alert('Es konnte kein Cartoon geladen werden. Bitte versuche es später erneut.');
-        });
+      const randomNumber = Math.floor(Math.random() * 3658) + 1; // 1 bis 3658
+      const url = `https://ruthe.de/cartoon/${randomNumber}/datum/asc`;
+      document.getElementById('cartoonFrame').src = url;
     }
 
-    // Beim Laden der Seite einen Cartoon anzeigen
+    // Beim Laden direkt einen Cartoon anzeigen
     window.onload = loadRandomCartoon;
   </script>
 </body>
