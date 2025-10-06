@@ -1,89 +1,203 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hallihalo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hallihalo — Ruthe Cartoon Zufall</title>
   <style>
-    /* Hintergrund & Body */
+    /* Grundlegendes Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Body */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f9;
+      background: linear-gradient(180deg,#f6f7fb 0%, #f4f4f9 100%);
+      color: #222;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 40px 20px;
-      color: #333;
+      padding: 24px;
+      gap: 16px;
+    }
+
+    header {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
     }
 
     h1 {
-      margin-bottom: 10px;
+      font-size: 1.4rem;
       font-weight: 700;
-      color: #222;
+      color: #111;
+      line-height: 1.1;
     }
 
-    p {
-      margin-bottom: 30px;
+    p.lead {
       color: #555;
-      font-size: 1.1rem;
+      font-size: 0.98rem;
     }
 
-    /* Cartoon Card */
+    /* Card */
     .cartoon-card {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      max-width: 700px;
       width: 100%;
-      text-align: center;
+      max-width: 920px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 8px 24px rgba(16,24,40,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: transform .25s ease, box-shadow .25s ease;
     }
 
-    .cartoon-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-    }
+    .cartoon-card:active { transform: translateY(-2px); }
 
-    img {
-      max-width: 100%;
+    /* Bild-Container: sorgt für sauberes Scaling und Platzhalter */
+    .image-wrap {
+      width: 100%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
       border-radius: 10px;
-      transition: opacity 0.5s ease-in-out;
+      overflow: hidden;
+      min-height: 180px; /* mobile-friendly minimum */
     }
 
-    /* Button */
-    button {
-      margin-top: 25px;
-      padding: 12px 28px;
-      font-size: 16px;
-      border: none;
+    /* Responsive image */
+    img#cartoonImage {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 80vh; /* prevents huge overflow on desktop */
+      object-fit: contain;
+      transition: opacity .35s ease;
+      opacity: 1;
+    }
+
+    /* Placeholder while image fades out */
+    .placeholder {
+      width: 50%;
+      height: 12px;
       border-radius: 8px;
-      background: linear-gradient(90deg, #007bff, #00aaff);
-      color: #fff;
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+      background: linear-gradient(90deg,#eee,#f5f5f7,#eee);
+      animation: pulse 1.4s infinite;
+      margin: 18px 0;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    @keyframes pulse {
+      0% { opacity: 0.6; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-4px); }
+      100% { opacity: 0.6; transform: translateY(0); }
+    }
+
+    /* Blinkender, touch-freundlicher Button */
+    @keyframes rainbowBlink {
+      0%   { background: #ff0057; }
+      16%  { background: #ff8c00; }
+      33%  { background: #ffee00; color: #111; }
+      50%  { background: #32cd32; color: #fff; }
+      66%  { background: #007bff; color: #fff; }
+      83%  { background: #8a2be2; color: #fff; }
+      100% { background: #ff00ff; color: #fff; }
+    }
+
+    .action-row {
+      width: 100%;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      padding-top: 6px;
+    }
+
+    button#randomBtn {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1;
+      color: #fff;
+      min-width: 180px;
+      box-shadow: 0 6px 20px rgba(16,24,40,0.12);
+      animation: rainbowBlink 3.2s infinite alternate;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    button#randomBtn:active { transform: translateY(2px) scale(.995); }
+    button#randomBtn:focus { outline: 3px solid rgba(0,123,255,0.18); }
+
+    /* Sekundärer kleiner Button (z.B. für teilen) */
+    button.secondary {
+      padding: 12px 14px;
+      min-width: 48px;
+      border-radius: 10px;
+      background: #eef2ff;
+      color: #223;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(16,24,40,0.06);
+    }
+
+    /* Footer / Meta */
+    footer {
+      width: 100%;
+      max-width: 920px;
+      text-align: center;
+      color: #666;
+      font-size: 0.86rem;
+      padding-top: 4px;
+    }
+
+    /* Desktop tweaks */
+    @media (min-width: 720px) {
+      body { padding: 36px; }
+      h1 { font-size: 1.6rem; }
+      .cartoon-card { padding: 20px; }
+      .image-wrap { min-height: 260px; }
+      button#randomBtn { padding: 14px 28px; font-size: 1.05rem; min-width: 220px; }
+    }
+
+    @media (min-width: 1100px) {
+      body { padding: 48px; }
+      h1 { font-size: 1.8rem; }
+      .cartoon-card { max-width: 820px; }
     }
   </style>
 </head>
 <body>
-  <h1>Hallo Martina, und deine klasse
-  </h1>
-  <p>Klicke auf den Button, um einen zufälligen Cartoon zu sehen!</p>
+  <header>
+    <h1>Hallo Martina, und deine Klasse!</h1>
+    <p class="lead">Wie war es so in Berlin? Auch an deine Schüler: Noch eine tolle Rückfahrt! <strong>PS:</strong> Drück mal den blinkenden Knopf 😄</p>
+  </header>
 
-  <div class="cartoon-card">
-    <img id="cartoonImage" src="" alt="Cartoon wird geladen..." />
-    <br>
-    <button onclick="loadRandomCartoon()">Neuen Cartoon laden</button>
-  </div>
+  <main class="cartoon-card" role="main" aria-live="polite">
+    <div class="image-wrap" id="imageWrap">
+      <!-- Placeholder shown while loading / before first image -->
+      <div class="placeholder" id="placeholder"></div>
+      <img id="cartoonImage" src="" alt="Ruthe Cartoon" style="opacity:0" />
+    </div>
+
+    <div class="action-row">
+      <button id="randomBtn" aria-label="Neuen Cartoon laden" title="Neuen Cartoon laden">🎨 Neuen Cartoon</button>
+      <!-- optional secondary button for share or next; kept for layout balance -->
+      <button class="secondary" id="infoBtn" aria-label="Info">i</button>
+    </div>
+  </main>
+
+  <footer>
+    <small>Cartoons stammen von ruthe.de — nur ausgewählte Beispiele werden angezeigt.</small>
+  </footer>
 
   <script>
     const cartoons = [
@@ -101,17 +215,54 @@
       'https://ruthe.de/cartoons/strip_0033.jpg'
     ];
 
+    const img = document.getElementById('cartoonImage');
+    const placeholder = document.getElementById('placeholder');
+    const randomBtn = document.getElementById('randomBtn');
+
+    // Load one random cartoon (with preloading and fade)
     function loadRandomCartoon() {
-      const randomIndex = Math.floor(Math.random() * cartoons.length);
-      const img = document.getElementById('cartoonImage');
-      img.style.opacity = 0; // Fade out
-      setTimeout(() => {
-        img.src = cartoons[randomIndex];
-        img.style.opacity = 1; // Fade in
-      }, 300);
+      // show placeholder & hide image during load
+      placeholder.style.display = 'block';
+      img.style.opacity = 0;
+
+      const index = Math.floor(Math.random() * cartoons.length);
+      const url = cartoons[index];
+
+      // Preload to avoid flicker
+      const pre = new Image();
+      pre.onload = () => {
+        // small delay for nicer effect
+        setTimeout(() => {
+          img.src = url;
+          img.alt = 'Ruthe Cartoon ' + url.split('/').pop();
+          img.style.opacity = 1;
+          placeholder.style.display = 'none';
+        }, 160);
+      };
+      pre.onerror = () => {
+        // fallback if image cannot be loaded
+        placeholder.style.display = 'none';
+        img.style.opacity = 1;
+        img.src = '';
+        img.alt = 'Cartoon konnte nicht geladen werden.';
+        img.style.display = 'block';
+        img.style.minHeight = '80px';
+        img.style.background = 'linear-gradient(90deg,#f8d7da,#fff)'; // visual cue
+      };
+      pre.src = url;
     }
 
-    window.onload = loadRandomCartoon;
+    // Bind to button with better touch responsiveness
+    randomBtn.addEventListener('click', loadRandomCartoon, { passive: true });
+
+    // Optional: quick double-tap safety on mobile disabled to avoid zoom issues
+    randomBtn.addEventListener('touchstart', (e) => {
+      // prevent double-tap zoom on some browsers
+      if (e.touches && e.touches.length > 1) e.preventDefault();
+    }, { passive: true });
+
+    // Load one on open
+    window.addEventListener('load', loadRandomCartoon);
   </script>
 </body>
 </html>
