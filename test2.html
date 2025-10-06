@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 Ruthe-Cartoon</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: linear-gradient(180deg, #dbe9ff, #a8c8ff);
+      color: #0a2342;
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .background-text {
+      position: absolute;
+      font-size: 5rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.12);
+      text-transform: uppercase;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      letter-spacing: 10px;
+      user-select: none;
+      animation: float 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      from { transform: translate(-50%, 0px); }
+      to { transform: translate(-50%, 10px); }
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #0a2342;
+    }
+
+    p {
+      color: #123;
+      margin-bottom: 25px;
+      font-size: 1rem;
+      max-width: 600px;
+    }
+
+    .cartoon-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      max-width: 700px;
+      width: 100%;
+      margin-top: 10px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .cartoon-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.15);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px 26px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      animation: blink 3s infinite alternate ease-in-out;
+      background: linear-gradient(90deg, #007bff, #00aaff);
+      transition: transform 0.2s ease;
+    }
+
+    @keyframes blink {
+      0% { background: #007bff; }
+      50% { background: #005fcc; }
+      100% { background: #009dff; }
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 40px;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5rem; }
+      p { font-size: 0.95rem; }
+      .background-text { font-size: 3rem; top: 15%; }
+      .cartoon-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-text">CARTOON</div>
+
+  <h1>Hallo Martina und eure Klasse 👋</h1>
+  <p>Wie war’s in Berlin? 😄 Auch liebe Grüße an deine Schüler!  
+  <br>Habt eine tolle Rückfahrt – und...  
+  <br><b>drückt mal den blinkenden Knopf!</b></p>
+
+  <div class="cartoon-card">
+    <img id="cartoonImage" src="" alt="Cartoon wird geladen..." />
+    <button onclick="loadRandomCartoon()">Drück mich </button>
+  </div>
+
+  <footer>mit liebe Gemacht</footer>
+
+  <script>
+    const cartoons = [
+      'https://ruthe.de/cartoons/strip_1807.jpg',
+      'https://ruthe.de/cartoons/strip_1784.jpg',
+      'https://ruthe.de/cartoons/strip_1782.jpg',
+      'https://ruthe.de/cartoons/strip_1305.jpg',
+      'https://ruthe.de/cartoons/strip_1181.jpg',
+      'https://ruthe.de/cartoons/strip_1355.jpg',
+      'https://ruthe.de/cartoons/strip_2203.jpg',
+      'https://ruthe.de/cartoons/strip_1854.jpg',
+      'https://ruthe.de/cartoons/strip_1725.jpg',
+      'https://ruthe.de/cartoons/strip_1703.jpg',
+      'https://ruthe.de/cartoons/strip_1212.jpg',
+      'https://ruthe.de/cartoons/strip_0033.jpg'
+    ];
+
+    function loadRandomCartoon() {
+      const randomIndex = Math.floor(Math.random() * cartoons.length);
+      const img = document.getElementById('cartoonImage');
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = cartoons[randomIndex];
+        img.style.opacity = 1;
+      }, 300);
+    }
+
+    window.onload = loadRandomCartoon;
+  </script>
+</body>
+</html>
