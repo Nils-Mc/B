@@ -132,11 +132,11 @@
   <div class="cartoon-card">
     <div class="placeholder" id="placeholder"></div>
     <img id="cartoonImage" src="" alt="Cartoon wird geladen..." style="opacity:0" />
-    <button onclick="loadRandomCartoon()">🎨 Neuen Cartoon laden</button>
+    <button onclick="loadRandomCartoon()">Drück Mich 😉</button>
   </div>
 
   <footer>
-    <small>Cartoons © Ruthe.de – Nur ausgewählte Beispiele werden angezeigt.</small>
+    <small>Von den Hogrebes und Julius mit Liebe Gemacht</small>
   </footer>
 
   <script>
@@ -177,7 +177,7 @@
       tempImg.onerror = () => {
         placeholder.style.display = 'none';
         img.src = '';
-        img.alt = 'Fehler beim Laden 😢';
+        img.alt = 'Fehler beim Laden ';
       };
 
       tempImg.src = newUrl;
